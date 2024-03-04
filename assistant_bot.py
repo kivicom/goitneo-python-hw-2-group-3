@@ -17,8 +17,8 @@ def input_error(func):
             return func(*args, **kwargs)
         except ValueError:
             return "Give me name and phone please."
-        except KeyError:
-            return "Enter user name."
+        except KeyError as e:
+            return f"Given key not found {e}"
         except IndexError:
             return "Insufficient data provided."
 
@@ -74,7 +74,7 @@ def change_contact(args, contacts):
         contacts[name] = phone
         return "Contact updated."
     else:
-        return "Contact not found."
+        raise KeyError(f"Contact {name} not found.")
 
 @input_error
 def show_phone(args, contacts):
